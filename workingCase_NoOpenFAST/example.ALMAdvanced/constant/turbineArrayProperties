@@ -1,0 +1,78 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      turbineArrayProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+ 
+globalProperties
+{
+    outputControl                    "timeStep";
+//  outputControl                    "runTime";
+    outputInterval                    1;
+    
+    dryRun                            true;
+    restart                           true;
+
+    superControllerOn                 false;
+    superControllerLib               "libScontroller.so";
+    numSuperControllerInputs          4;
+    numSuperControllerOutputs         2;
+
+    timeSimulationStart               200.0;
+    timeSimulationEnd                 20000.0;
+
+    checkPointInterval                6600;  // FAST timeSteps 
+}
+ 
+turbine0
+{
+    turbineType                      "NREL5MWRef";
+    FASTInputFileName                "NREL5MWRef.0.fst";
+    FASTRestartFileName              "NREL5MWRef.0.chkpt";
+    nFASTSubSteps                     66;
+    includeNacelle                    true;
+    includeTower                      true;
+    baseLocation                     (1500 2500.0 0.0);
+    numBladePoints                    40;
+    numNacellePoints                  10;
+    numTowerPoints                    40;
+    bladePointDistType               "uniform";
+    nacellePointDistType             "uniform";
+    towerPointDistType               "uniform";
+    bladeSearchCellMethod            "disk";
+    bladeActuatorPointInterpType     "linear"; // "linear" "cellCenter" "integral"
+    nacelleActuatorPointInterpType   "linear";
+    towerActuatorPointInterpType     "linear";
+    actuatorUpdateType               "oldPosition";
+    bladeForceProjectionType         "uniformGaussian";
+    nacelleForceProjectionType       "diskGaussian";
+    towerForceProjectionType         "diskGaussian";
+    bladeForceProjectionDirection    "sampledVelocityAligned";   // "localVelocityAligned" "sampledVelocityAligned"  Not used in FAST
+    bladeEpsilon                     (20 20  20.0);
+    nacelleEpsilon                   (20 20  20.0);
+    towerEpsilon                     (20 20  20.0);
+    nacelleSampleDistance             10.0;
+    towerSampleDistance               20.5;
+    nacelleLength                     15.0;  // [ m ]
+    nacelleFrontalArea                100.0;            // 10m x 10m -> Not used in FAST
+    nacelleCd                         0.5;
+    velocityDragCorrType             "none";  // not active with FAST
+    tipRootLossCorrType              "none";  // "Glauert"; //  not active with FAST
+    rotationDir                      "cw";
+    Azimuth                           0.0;
+    RotSpeed                          9.1552;
+    TorqueGen                         0.0;
+    Pitch                             0.0;
+    NacYaw                            0.0;
+    fluidDensity                      1.225;  //  1.225   AirDens AeroDyn15.dat
+}

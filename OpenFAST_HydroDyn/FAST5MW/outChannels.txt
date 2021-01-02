@@ -1,0 +1,37 @@
+"Azimuth"                 - Blade 1 azimuth angle
+"RotSpeed"                - Low-speed shaft speed
+"GenSpeed"                - High-speed shaft speed
+"OoPDefl1"                - Blade 1 out-of-plane deflection
+"IPDefl1"                 - Blade 1 in-plane deflection
+"TwstDefl1"               - Blade 1 tip twist
+"BldPitch1"               - Blade 1 pitch angle
+"TTDspFA"                 - Tower fore-aft deflection
+"TTDspSS"                 - Tower side-to-side deflection
+"TTDspTwst"               - Tower top twist
+"PtfmSurge"               - Platform translational surge displacement
+"PtfmSway"                - Platform translational sway  displacement
+"PtfmHeave"               - Platform translational heave displacement
+"PtfmRoll"                - Platform rotational roll  displacement
+"PtfmPitch"               - Platform rotational pitch displacement
+"PtfmYaw"                 - Platform rotational yaw   displacement
+"RootFxc1"                - Out-of-plane shear force at the root of blade 1
+"RootFyc1"                - In-plane shear force at the root of blade 1
+"RootFzc1"                - Axial force at the root of blade 1
+"RootMxc1"                - In-plane bending moment at the root of blade 1
+"RootMyc1"                - Out-of-plane bending moment at the root of blade 1
+"RootMzc1"                - Pitching moment at the root of blade 1
+"RotTorq"                 - Rotor torque
+"LSSGagMya"               - Low-speed shaft 0- rotating bending moments at the main bearing
+"LSSGagMza"               - Low-speed shaft 90-rotating bending moments at the main bearing
+"YawBrFxp"                - Fore-aft shear force at the top of the tower (not rotating with nacelle yaw)
+"YawBrFyp"                - Side-to-side shear force at the top of the tower (not rotating with nacelle yaw)
+"YawBrFzp"                - Vertical force at the top of the tower (not rotating with nacelle yaw)
+"YawBrMxp"                - Side-to-side bending moment at the top of the tower (not rotating with nacelle yaw)
+"YawBrMyp"                - Fore-aft bending moment at the top of the tower (not rotating with nacelle yaw)
+"YawBrMzp"                - Yaw moment at the top of the tower (not rotating with nacelle yaw)
+"TwrBsFxt"                - Fore-aft shear force at the base of the tower (platform)
+"TwrBsFyt"                - Side-to-side shear force at the base of the tower (platform)
+"TwrBsFzt"                - Vertical force at the base of the tower (platform)
+"TwrBsMxt"                - Side-to-side bending moment at the base of the tower (platform)
+"TwrBsMyt"                - Fore-aft bending moment at the base of the tower (platform)
+"TwrBsMzt"                - Yaw moment at the base of the tower (platform)

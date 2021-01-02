@@ -1,0 +1,44 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      topoSetDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+# include       "../setUp"
+//# include       "../constant/turbineArrayProperties"
+distance	6; //distance for downstream refinement
+dir	      270;			
+
+actions
+(
+    {
+        name         local;
+        type         cellSet;
+        action       new;
+        source       cylinderToCell;
+        sourceInfo
+        {
+//	    p1	     (#calc "1+$turbine0.x" $turbine0.y $windHeight)
+//          p1       (#calc "1260.772+$D*cos($dir*3.1415/180)"  #calc "1260.772+$D*sin($dir*3.1415/180)" $windHeight);
+//          p2       (#calc "1260.772-50*$D*cos($dir*3.1415/180)"  #calc "1260.772-50*$D*sin($dir*3.1415/180)" $windHeight);
+
+	    p1	     (#calc "1500-$D" 2500 $windHeight); // start point on cylinder axis
+            p2       (#calc "1500+10*$D" 2500 $windHeight); // end point on cylinder axis
+
+            radius   #calc "1.5*$D";
+        }
+    }
+);
+
+// ************************************************************************* //

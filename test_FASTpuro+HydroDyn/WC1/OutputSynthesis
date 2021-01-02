@@ -1,0 +1,30 @@
+
+ Average platform horizontal displacement: 
+ Fore-aft: 0.106595 [m] 
+ Side-to-side: -0.000073 [m] 
+
+ Average platform angular displacement: 
+ Fore-aft: 0.000003 [deg] 
+ Side-to-side: -0.090998 [deg] 
+
+ Average Blade 1 force at the blade root:
+ x: 7.124795 [kN] 
+ y: 0.086341 [kN] 
+ z: -171.822907 [kN] 
+
+ Average blade 1 moment at the blade root:
+ x: -1.687230 [kN] 
+ y: 148.269849 [kN] 
+ z: 0.005551 [kN] 
+
+ Average rotor torque: -0.000237 [kN*m] 
+
+ Average tower-top / yaw bearing shear:
+ x: -7.429503 [N] 
+ y: -0.000623 [N] 
+ z: -3426.218242 [N] 
+
+ Average tower-top / yaw bearing roll moment:
+ x: 0.002315 [kN*m] 
+ y: -1397.741441 [kN*m] 
+ z: 0.026572 [kN*m] 

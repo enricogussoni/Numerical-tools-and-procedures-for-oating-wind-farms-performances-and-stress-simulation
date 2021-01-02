@@ -1,0 +1,81 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : 2.4.x-2b147f41daf9
+Exec   : blockMesh
+Date   : Jan 28 2019
+Time   : 18:07:52
+Host   : "r065c04s01"
+PID    : 18210
+Case   : /marconi_scratch/userexternal/afriger1/enrico/example.cases2018/example.ABL.flatTerrain.neutral
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+--> FOAM Warning : 
+    From function dlOpen(const fileName&, const bool)
+    in file POSIX.C at line 1179
+    dlopen error : /marconi_work/Pra16_4200/SowfaRoot/SOWFA_20181212/lib/libuserincompressibleLESModels.so: undefined symbol: _ZTIN4Foam14incompressible9LESModels11GenEddyViscE
+--> FOAM Warning : 
+    From function dlLibraryTable::open(const fileName&, const bool)
+    in file db/dynamicLibrary/dlLibraryTable/dlLibraryTable.C at line 99
+    could not load "libuserincompressibleLESModels.so"
+Creating block mesh from
+    "/marconi_scratch/userexternal/afriger1/enrico/example.cases2018/example.ABL.flatTerrain.neutral/constant/polyMesh/blockMeshDict"
+Creating curved edges
+Creating topology blocks
+Creating topology patches
+
+Creating block mesh topology
+
+Check topology
+
+	Basic statistics
+		Number of internal faces : 0
+		Number of boundary faces : 6
+		Number of defined boundary faces : 6
+		Number of undefined boundary faces : 0
+	Checking patch -> block consistency
+
+Creating block offsets
+Creating merge list .
+
+Creating polyMesh from blockMesh
+Creating patches
+Creating cells
+Creating points with scale 1
+    Block 0 cell size :
+        i : 50 .. 50
+        j : 50 .. 50
+        k : 25 .. 25
+
+
+Writing polyMesh
+----------------
+Mesh Information
+----------------
+  boundingBox: (0 0 0) (5000 5000 1000)
+  nPoints: 418241
+  nCells: 400000
+  nFaces: 1218000
+  nInternalFaces: 1182000
+----------------
+Patches
+----------------
+  patch 0 (start: 1182000 size: 10000) name: lower
+  patch 1 (start: 1192000 size: 10000) name: upper
+  patch 2 (start: 1202000 size: 4000) name: west
+  patch 3 (start: 1206000 size: 4000) name: east
+  patch 4 (start: 1210000 size: 4000) name: north
+  patch 5 (start: 1214000 size: 4000) name: south
+
+End
+

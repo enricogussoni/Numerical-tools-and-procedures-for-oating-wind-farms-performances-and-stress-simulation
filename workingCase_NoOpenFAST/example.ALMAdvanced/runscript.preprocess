@@ -1,0 +1,224 @@
+#!/bin/bash
+#SBATCH --job-name=ex_precursor
+
+# PARTITIONS: dbg: 2 nodes, 30 min max ; prod: 1-195 nodes, 24 hours 
+##SBATCH --partition=knl_usr_prod
+#SBATCH --partition=knl_usr_dbg
+#SBATCH --time=00:30:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=16
+
+
+#SBATCH --account=Pra16_4200
+#SBATCH --hint=memory_bound
+#SBATCH --constraint=cache
+#SBATCH --export=NONE
+#SBATCH --threads-per-core=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=86000
+#SBATCH --out=log.%x_%j.out 
+#SBATCH --err=log.%x_%j.err 
+
+#############################################################
+# Setup environment
+module purge
+module load profile/global
+module load mkl/2017--binary
+module load intel/pe-xe-2017--binary
+module load szip/2.1--gnu--6.1.0
+module load zlib/1.2.8--gnu--6.1.0
+module load hdf5/1.8.17--intel--pe-xe-2017--binary
+module load gnu/6.1.0
+module load openmpi/1-10.3--gnu--6.1.0
+module load boost/1.61.0--gnu--6.1.0
+
+# LOAD OpenFOAM
+export WORK=/marconi_work/Pra16_4200
+source ${WORK}/SowfaRoot/OpenFOAM/OpenFOAM-2.4.x/etc/bashrc
+
+# LOAD OpenFAST: 0 load SC version, 1 regular version
+SC=1
+
+if [ $SC == 0 ]
+then
+  echo "Loading Supercontroller version" 
+  export OPENFAST_LIB=${WORK}/SowfaRoot/OpenFAST_SC/lib
+  export FOAM_USER_APPBIN=${WORK}/SowfaRoot/SOWFA_SC/bin
+  export FOAM_USER_LIBBIN=${WORK}/SowfaRoot/SOWFA_SC/lib
+else
+  echo "Loading NO Supercontroller version" 
+  export OPENFAST_LIB=${WORK}/SowfaRoot/OpenFAST_20181212/lib
+  export FOAM_USER_APPBIN=${WORK}/SowfaRoot/SOWFA_20181212/bin
+  export FOAM_USER_LIBBIN=${WORK}/SowfaRoot/SOWFA_20181212/lib
+fi 
+
+
+export PATH=${FOAM_USER_APPBIN}:${PATH}
+export LD_LIBRARY_PATH=${OPENFAST_LIB}:${FOAM_USER_LIBBIN}:${LD_LIBRARY_PATH}
+
+
+##############################################################
+
+export CASE_DIR=/marconi_scratch/userexternal/afriger1/enrico/example.cases2018/example.ABL.flatTerrain.neutral
+echo
+echo "Job ${SLURM_JOB_NAME}, (${SLURM_JOB_ID}),"
+echo "Nº nodes: ${SLURM_JOB_NUM_NODES}, Cores per node: ${SLURM_NTASKS_PER_NODE}. Total number of cores: ${SLURM_NTASKS}"
+echo "Running on ${SLURM_JOB_PARTITION} partition."
+echo "CASE_DIR = ${CASE_DIR}"
+echo 
+
+cd ${CASE_DIR}
+
+
+
+
+# User Input.
+OpenFOAMversion=2.4.x-central   # OpenFOAM version
+startTime=0                     # Start time
+updateBCType=0                  # Boolean for whether or not the boundary condition types will be updated over 
+                                #    what is in the initial conditions files. Leave it 0 for precursors
+inflowDir='cyclic'              # For inflow/outflow cases, specify the inflow direction.  Choices are 'west',
+                                #   'east', 'south', 'west', 'southWest', 'northWest', 'southEast', and
+                                #   'northEast'.  There is a 'cyclic' option too in case you need to change
+                                #    back to cyclic or simply update the number of boundary face entries.
+parallel=0                      # Boolean for whether or not the preprocessing is run in parallel.
+cores=${SLURM_NTASKS}           # Enter the number of cores you will preprocess on.
+
+refinementLevels=0              # If you want to refine the mesh locally for any reason, or if you are making
+                                # a uniform resolution mesh that is so large that you need to build it in serial
+                                # at lower resolution and then globally refine, set the number of refinement
+                                # levels here.  See the refineMeshSerial and refineMeshParallel functions to 
+                                # understand what they do.  The serial version runs topoSet and refineHexMesh, 
+                                # so you need to provide system/topoSetDict.local.N files where N corresponds
+                                # to the refinement level (i.e., if you are doing nested local refinement boxes.
+                                # In most cases, though, you probably will not be refining, so keep this set to 
+                                # 0.
+arrayDir=270                    # Array direction which determines effective wind direction = dir-arrayDir,
+                                #     where dir is the main wind direction in setUp. arrayDir should be the same as
+                                #     arrayDir in setUp file.
+                                #     Note that the angle is defined as, North-0, East-90, South-180, West-270 deg.
+                                #     NacYaw in ElastoDyn.<#>.dat should be, NacYaw=270-arrayDir.
+
+
+
+
+
+# Define some functions for mesh refinement.
+# Local refinement performed on one core.
+refineMeshLocal()
+{
+   i=$1
+   while [ $i -ge 1 ]
+   do
+      echo "   -Performing level $i local refinement with topoSet/refineHexMesh"
+      echo "      *selecting cells to refine..."
+      topoSet -dict system/topoSetDict.local.$i > log.topoSet.local.$i 2>&1
+
+      echo "      *refining cells..."
+      refineHexMesh local -overwrite > log.refineHexMesh.local.$i 2>&1
+
+      let i=i-1
+   done
+}
+
+# Global refinement performed in parallel.
+refineMeshGlobal()
+{
+   i=1
+   while [ $i -le $1 ]
+   do
+      echo "   -Performing level $i global refinement with refineMesh"
+      echo "      *refining cells..."
+      mpirun -np $cores refineMesh -all -parallel -overwrite > log.refineMesh.global.$i 2>&1
+
+      let i=i+1
+   done
+}
+
+
+# If running in parallel, cd to job launch directory
+if [ $parallel -eq 1 ]
+   then
+   cd $PBS_O_WORKDIR
+fi
+
+
+# Source the bash profile and then call the appropriate OpenFOAM version function
+# so that all the modules and environment variables get set.
+source $HOME/.bash_profile
+OpenFOAM-$OpenFOAMversion
+
+
+# Copy the controlDict.1 (assuming this is the one the actual solver will start
+# out with) to controlDict.  OpenFOAM reads "controlDict", not the numbered ones.
+cp system/controlDict.1 system/controlDict
+
+
+# Copy the "clean" .original initial fields to a working copy.  OpenFOAM does not
+# read the ".original" initial fields--that's why they remain clean.
+rm -rf $startTime
+cp -rf $startTime.original $startTime
+
+
+# Build the mesh.
+cp constant/polyMesh/blockMeshDict ./
+rm -rf constant/polyMesh/*
+mv ./blockMeshDict constant/polyMesh
+blockMesh > log.blockMesh 2>&1
+
+
+# The initial fields come from the precursor which is periodic on all sides.  The turbine
+# case has inflow and outflow.  Call the changeDictionary utility to make the south and
+# north sides inflow and outflow.
+if [ $updateBCType -eq 1 ]
+   then
+   changeDictionary -dict system/changeDictionaryDict.updateBCs.$inflowDir -time $startTime -enableFunctionEntries > log.changeDictionary.updateBCs.$inflowDir.1 2>&1
+fi
+
+
+# Do serial local refinement
+refineMeshLocal $refinementLevels
+
+
+# If running in parallel from this point forward, then do the following:
+if [ $parallel -eq 1 ]
+   then
+   # Decompose the mesh and solution files (serial)
+   decomposePar -cellDist -force > log.decomposePar 2>&1
+
+   # Check the mesh
+   mpirun -np $cores checkMesh -parallel > log.checkMesh.1 2>&1
+
+   # Perform global refinement to desired resolution.
+   refineMeshGlobal $refinementLevels
+
+   # The mesh got globally refined, but the solution file did not, so
+   # the boundary fields may not have the correct number of entries.
+   # Use the changeDictionary utility to overwrite the spatially varying
+   # boundary data to a uniform single value.
+   if [ $updateBCType -eq 1 ]
+      then
+      mpirun -np $cores changeDictionary -dict system/changeDictionaryDict.updateBCs.$inflowDir -time $startTime -enableFunctionEntries -parallel > log.changeDictionary.updateBCs.$inflowDir.1 2>&1
+   fi
+
+   # Renumber the mesh for better matrix solver performance.
+   mpirun -np $cores renumberMesh -parallel -overwrite > log.renumberMesh 2>&1
+
+   # Do one last check on the mesh.
+   mpirun -np $cores checkMesh -parallel > log.checkMesh.3 2>&1
+
+
+# Otherwise, run in serial as follows:
+else
+   # Renumber the mesh.
+   echo "   -Renumbering the mesh with renumberMesh..."
+   renumberMesh -overwrite > log.renumberMesh 2>&1
+
+   # Decompose the mesh and solution files (serial)
+   echo "   -Decomposing the domain with decomposePar..."
+   decomposePar -cellDist -force > log.decomposePar 2>&1
+
+   # Check the mesh.
+   echo "   -Checking the mesh with checkMesh..."
+   checkMesh > log.checkMesh.1 2>&1
+fi

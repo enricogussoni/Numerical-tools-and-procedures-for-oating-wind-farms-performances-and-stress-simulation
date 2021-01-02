@@ -1,0 +1,75 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+6
+(
+    lower
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          10000;
+        startFace       1182000;
+    }
+    upper
+    {
+        type            patch;
+        nFaces          10000;
+        startFace       1192000;
+    }
+    west
+    {
+        type            cyclic;
+        inGroups        1(cyclic);
+        nFaces          4000;
+        startFace       1202000;
+        matchTolerance  0.0001;
+        transform       unknown;
+        neighbourPatch  east;
+    }
+    east
+    {
+        type            cyclic;
+        inGroups        1(cyclic);
+        nFaces          4000;
+        startFace       1206000;
+        matchTolerance  0.0001;
+        transform       unknown;
+        neighbourPatch  west;
+    }
+    north
+    {
+        type            cyclic;
+        inGroups        1(cyclic);
+        nFaces          4000;
+        startFace       1210000;
+        matchTolerance  0.0001;
+        transform       unknown;
+        neighbourPatch  south;
+    }
+    south
+    {
+        type            cyclic;
+        inGroups        1(cyclic);
+        nFaces          4000;
+        startFace       1214000;
+        matchTolerance  0.0001;
+        transform       unknown;
+        neighbourPatch  north;
+    }
+)
+
+// ************************************************************************* //

@@ -1,0 +1,37 @@
+Blade 1 azimuth angle
+Low-speed shaft speed
+High-speed shaft speed
+Blade 1 out-of-plane deflection
+Blade 1 in-plane deflection
+Blade 1 tip twist
+Blade 1 pitch angle
+Tower fore-aft deflection
+Tower side-to-side deflection
+Tower top twist
+Platform translational surge displacement
+Platform translational sway displacement
+Platform translational heave displacement
+Platform rotational roll displacement
+Platform rotational pitch displacement
+Platform rotational yaw displacement
+Out-of-plane shear force at the root of blade 1
+In-plane shear force at the root of blade 1
+Axial force at the root of blade 1
+In-plane  bending moment at the root of blade 1
+Out-of-plane bending moment at the root of blade 1
+Pitching moment at the root of blade 1
+Rotor torque
+Low-speed shaft 0- rotating bending moments at the main bearing
+Low-speed shaft 90-rotating bending moments at the main bearing
+Fore-aft shear force at the top of the tower (not rotating with nacelle yaw)
+Side-to-side shear force at the top of the tower (not rotating with nacelle yaw)
+Vertical  force at the top of the tower (not rotating with nacelle yaw)
+Side-to-side bending moment at the top of the tower (not rotating with nacelle yaw)
+Fore-aft  bending moment at the top of the tower (not rotating with nacelle yaw)
+Yaw  moment at the top of the tower (not rotating with nacelle yaw)
+Fore-aft  shear force at the base of the tower (platform)
+Side-to-side shear force at the base of the tower (platform)
+Vertical force at the base of the tower (platform)
+Side-to-side bending moment at the base of the tower (platform)
+Fore-aft  bending moment at the base of the tower (platform)
+Yaw moment at the base of the tower (platform)

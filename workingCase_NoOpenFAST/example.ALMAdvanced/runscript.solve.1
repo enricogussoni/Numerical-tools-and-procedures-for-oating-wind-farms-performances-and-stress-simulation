@@ -1,0 +1,93 @@
+#!/bin/bash
+#SBATCH --job-name=ex_precursor
+
+# PARTITIONS: dbg: 2 nodes, 30 min max ; prod: 1-195 nodes, 24 hours 
+##SBATCH --partition=knl_usr_prod
+#SBATCH --partition=knl_usr_dbg
+#SBATCH --time=00:30:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=16
+
+
+#SBATCH --account=Pra16_4200
+#SBATCH --hint=memory_bound
+#SBATCH --constraint=cache
+#SBATCH --export=NONE
+#SBATCH --threads-per-core=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=86000
+#SBATCH --out=log.%x_%j.out 
+#SBATCH --err=log.%x_%j.err 
+
+#############################################################
+# Setup environment
+module purge
+module load profile/global
+module load mkl/2017--binary
+module load intel/pe-xe-2017--binary
+module load szip/2.1--gnu--6.1.0
+module load zlib/1.2.8--gnu--6.1.0
+module load hdf5/1.8.17--intel--pe-xe-2017--binary
+module load gnu/6.1.0
+module load openmpi/1-10.3--gnu--6.1.0
+module load boost/1.61.0--gnu--6.1.0
+
+# LOAD OpenFOAM
+export WORK=/marconi_work/Pra16_4200
+source ${WORK}/SowfaRoot/OpenFOAM/OpenFOAM-2.4.x/etc/bashrc
+
+# LOAD OpenFAST: 0 load SC version, 1 regular version
+SC=1
+
+if [ $SC == 0 ]
+then
+  echo "Loading Supercontroller version" 
+  export OPENFAST_LIB=${WORK}/SowfaRoot/OpenFAST_SC/lib
+  export FOAM_USER_APPBIN=${WORK}/SowfaRoot/SOWFA_SC/bin
+  export FOAM_USER_LIBBIN=${WORK}/SowfaRoot/SOWFA_SC/lib
+else
+  echo "Loading NO Supercontroller version" 
+  export OPENFAST_LIB=${WORK}/SowfaRoot/OpenFAST_20181212/lib
+  export FOAM_USER_APPBIN=${WORK}/SowfaRoot/SOWFA_20181212/bin
+  export FOAM_USER_LIBBIN=${WORK}/SowfaRoot/SOWFA_20181212/lib
+fi 
+
+
+export PATH=${FOAM_USER_APPBIN}:${PATH}
+export LD_LIBRARY_PATH=${OPENFAST_LIB}:${FOAM_USER_LIBBIN}:${LD_LIBRARY_PATH}
+
+
+##############################################################
+
+export CASE_DIR=/marconi_scratch/userexternal/afriger1/enrico/example.cases2018/example.ABL.flatTerrain.neutral
+echo
+echo "Job ${SLURM_JOB_NAME}, (${SLURM_JOB_ID}),"
+echo "Nº nodes: ${SLURM_JOB_NUM_NODES}, Cores per node: ${SLURM_NTASKS_PER_NODE}. Total number of cores: ${SLURM_NTASKS}"
+echo "Running on ${SLURM_JOB_PARTITION} partition."
+echo "CASE_DIR = ${CASE_DIR}"
+echo 
+
+cd ${CASE_DIR}
+
+cores=${SLURM_NTASKS}
+
+initializer=setFieldsABL
+solver=ABLSolver
+runNumber=1
+startTime=0
+
+cp system/controlDict.$runNumber system/controlDict
+
+echo "Starting OpenFOAM job at: " $(date)
+echo "using " $cores " cores"
+
+# Run the flow field initializer (parallel)
+if [ $runNumber -eq 1 ] 
+   then
+   mpirun -np $cores $initializer -parallel > log.$runNumber.$initializer 2>&1
+fi
+
+# Run the solver (parallel)
+mpirun -np $cores $solver -parallel > log.$runNumber.$solver 2>&1
+
+echo "Ending OpenFOAM job at: " $(date)

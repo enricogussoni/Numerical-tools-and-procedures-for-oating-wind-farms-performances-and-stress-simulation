@@ -1,0 +1,12 @@
+% Added mass and damping
+PER = dotOne(:,1);
+i_ind = dotOne(:,2);
+j_ind = dotOne(:,3);
+A = dotOne(:,4);
+B = dotOne(:,5);
+
+n_samp = max(find(dotOne==dotOne(1,1)));
+dock = dotOne;
+for cc = 1:n_samp
+    subMatrix.(cc) = dock(1:n_samp,:);
+end

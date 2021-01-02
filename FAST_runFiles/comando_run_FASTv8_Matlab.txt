@@ -1,0 +1,3 @@
+[status, result] = system(['"C:\Users\Enrico\GUSS\POLIMI\TESI\FAST_runFiles\FAST_x64d.exe" "C:\Users\Enrico\GUSS\POLIMI\TESI\OpenFAST_HydroDyn\WorkingCase1.3\Test25.fst"'],'-echo');
+
+-echo serve a far aspettare Matlab fino a quando FAST ha finito

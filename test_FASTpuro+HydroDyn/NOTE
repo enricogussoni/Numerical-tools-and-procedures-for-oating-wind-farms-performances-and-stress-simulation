@@ -1,0 +1,5 @@
+Enrico_fast_testFEDE and EsempioHydro1-4 are just debug tests.
+EsempioHydro5 (=Test19) is a complete working case usefull for sensitivity analisys.
+A matlab postprocessing script can be found in EsempioHydro5.
+EsempioHydro6 (Test24) and 7 (Test25) are working floating examples.
+In WorkingCase1 there are modified versions of Test25. 

@@ -1,0 +1,73 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : 2.4.x-2b147f41daf9
+Exec   : setFieldsABL -parallel
+Date   : Jan 28 2019
+Time   : 18:10:06
+Host   : "r065c01s03"
+PID    : 26773
+Case   : /marconi_scratch/userexternal/afriger1/enrico/example.cases2018/example.ABL.flatTerrain.neutral
+nProcs : 16
+Slaves : 
+15
+(
+"r065c01s03.26774"
+"r065c01s03.26775"
+"r065c01s03.26776"
+"r065c01s03.26777"
+"r065c01s03.26778"
+"r065c01s03.26779"
+"r065c01s03.26780"
+"r065c01s03.26781"
+"r065c01s03.26782"
+"r065c01s03.26783"
+"r065c01s03.26784"
+"r065c01s03.26785"
+"r065c01s03.26786"
+"r065c01s03.26787"
+"r065c01s03.26788"
+)
+
+Pstream initialized with:
+    floatTransfer      : 0
+    nProcsSimpleSum    : 0
+    commsType          : nonBlocking
+    polling iterations : 0
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+--> FOAM Warning : 
+    From function dlOpen(const fileName&, const bool)
+    in file POSIX.C at line 1179
+    dlopen error : /marconi_work/Pra16_4200/SowfaRoot/SOWFA_20181212/lib/libuserincompressibleLESModels.so: undefined symbol: _ZTIN4Foam14incompressible9LESModels11GenEddyViscE
+--> FOAM Warning : 
+    From function dlLibraryTable::open(const fileName&, const bool)
+    in file db/dynamicLibrary/dlLibraryTable/dlLibraryTable.C at line 99
+    could not load "libuserincompressibleLESModels.so"
+Create mesh for time = 0
+
+Reading field U
+Reading field T
+Reading field p_rgh
+Creating/Calculating face flux field, phi...
+Reading gravitational acceleration...
+Selecting incompressible transport model Newtonian
+Creating the kinematic density field, rhok...
+u* = 0.375710627678 m/s
+Calculating wind vector...
+Updating internal U field...
+Updating internal T field...
+Updating internal p_rgh field...
+Writing field U
+Writing field T
+Writing field p_rgh
+Finalising parallel run

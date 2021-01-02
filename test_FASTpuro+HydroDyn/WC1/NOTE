@@ -1,0 +1,232 @@
+Wind 0 m/s -> InflowWind: 1   WindType; 0   HWindSpeed
+Waves 0 m/s -> HydroDyn.dat: 0   WaveMod
+Surge(t=0s) = 10m -> study the decay
+
+
+  Running InflowWind (v3.03.00, 26-Jul-2016).
+  Opening InflowWind input file:
+  ../../Desktop/ENRICO/test_FASTpuro+HydroDyn/WorkingCase1/5MW_Baseline/NRELOffshrBsline5MW_InflowW
+  ind_Steady8mps.dat
+
+ FAST_InitializeAll:InflowWind_Init:Steady_ValidateInput: Horizontal wind speed (HWindSpeed) for
+ steady winds must be greater than zero.
+
+ FAST encountered an error during module initialization.
+ Simulation error level: FATAL ERROR
+
+  Aborting FAST.
+
+################################################################################
+-fst: 
+0   CompInflow
+"unused"    InflowFile
+
+
+ Running FAST (v8.16.00a-bjj, 27-Jul-2016), compiled as a 64-bit application using single
+  precision
+  linked with NWTC Subroutine Library (v2.09.00, 23-Jul-2016)
+
+  Heading of the FAST input file:
+    FAST Certification Test #25: NREL 5.0 MW Baseline Wind Turbine with OC4-DeepCwind semi
+    configuration, for use in offshore analysis
+
+  Running ElastoDyn (v1.04.00a-bjj, 26-Jul-2016).
+
+  Running AeroDyn (v15.03.00, 27-Jul-2016).
+
+  Running AirfoilInfo (v1.01.00a-bjj, 5-Apr-2016).
+
+  Running BEM (v1.02.00, 29-Jun-2016).
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 1, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 2, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 3, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 4, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 1, Blade = 2
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 2, Blade = 2
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 3, Blade = 2
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 4, Blade = 2
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 1, Blade = 3
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 2, Blade = 3
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 3, Blade = 3
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 4, Blade = 3
+
+  Running ServoDyn (v1.06.00a-bjj, 26-Jul-2016).
+
+  Running ServoDyn Interface for Bladed Controllers (using GNU Fortran for Linux, 14-Oct-2015).
+
+  Running HydroDyn (v2.05.01, 27-Jul-2016).
+   Setting WaveTMax to 0.0 since WaveMod = 0
+  Reading in WAMIT output with root name
+  "../../Desktop/ENRICO/test_FASTpuro+HydroDyn/WorkingCase1/5MW_Baseline/HydroData/marin_semi".
+  Computing radiation impulse response functions and wave diffraction forces.
+  Calculating second order difference-frequency force using the full quadratic transfer function.
+  Calculating second order sum-frequency force using the full quadratic transfer function.
+
+  Running MoorDyn (v1.01.02F, 8-Apr-2016).
+   Creating mooring system.   3 fairleads, 3 anchors, 0 connects.
+    Finalizing ICs using dynamic relaxation.
+
+
+   t=2  FairTen 1: 1.04239E+06, 0, 0                                                              
+   t=3.9999  FairTen 1: 9.96305E+05, 1.04239E+06, 0                                               
+   t=5.9997  FairTen 1: 9.93218E+05, 9.96305E+05, 1.04239E+06                                     
+   t=7.9996  FairTen 1: 1.00619E+06, 9.93218E+05, 9.96305E+05                                     
+   t=10  FairTen 1: 9.93144E+05, 1.00619E+06, 9.93218E+05                                         
+   t=12.001  FairTen 1: 1.00234E+06, 9.93144E+05, 1.00619E+06                                     
+   t=14.002  FairTen 1: 1.00404E+06, 1.00234E+06, 9.93144E+05                                     
+   t=16.003  FairTen 1: 9.95705E+05, 1.00404E+06, 1.00234E+06                                         Fairlead tensions converged to 1% after 16.003 seconds.
+  Timestep: 0 of 60 seconds.
+
+ FAST_Solution0:CalcOutputs_And_SolveForInputs:SolveOption2:SrvD_CalcOutput:Running with torque
+ and pitch control of the NREL offshore 5MW baseline wind turbine from DISCON.dll as written by J.
+ Jonkman of NREL/NWTC for use in the IEA Annex XXIII OC3 studies.  Includes modifications for the
+ Hywind spar.
+
+
+ FAST_Solution:FAST_AdvanceStates:AD_UpdateStates:BEMT_UpdateStates(node 5, blade
+ 2):BEMT_UnCoupledSolve:DeterminePhiBounds:There is no valid value of phi for these operating
+ conditions!  Vx = -8.30245E-03, Vy = 11.094, rlocal = 11.748, theta = 0.23228
+
+ FAST encountered an error at simulation time 1.25000E-02 of 60 seconds.
+  Simulation error level: FATAL ERROR
+
+  Aborting FAST.
+
+################################################################################
+
+Giving initial conditio in ElastoDyn
+
+---------------------- INITIAL CONDITIONS --------------------------------------
+          0   OoPDefl     - Initial out-of-plane blade-tip displacement (meters)
+          0   IPDefl      - Initial in-plane blade-tip deflection (meters)
+          0   BlPitch(1)  - Blade 1 initial pitch (degrees)
+          0   BlPitch(2)  - Blade 2 initial pitch (degrees)
+          0   BlPitch(3)  - Blade 3 initial pitch (degrees) [unused for 2 blades]
+          0   TeetDefl    - Initial or fixed teeter angle (degrees) [unused for 3 blades]
+          0   Azimuth     - Initial azimuth angle for blade 1 (degrees)
+          0   RotSpeed    - Initial or fixed rotor speed (rpm)
+          0   NacYaw      - Initial or fixed nacelle-yaw angle (degrees)
+          0   TTDspFA     - Initial fore-aft tower-top displacement (meters)
+          0   TTDspSS     - Initial side-to-side tower-top displacement (meters)
+         10   PtfmSurge   - Initial or fixed horizontal surge translational displacement of platform (meters)
+          0   PtfmSway    - Initial or fixed horizontal sway translational displacement of platform (meters)
+          0   PtfmHeave   - Initial or fixed vertical heave translational displacement of platform (meters)
+          0   PtfmRoll    - Initial or fixed roll tilt rotational displacement of platform (degrees)
+          0   PtfmPitch   - Initial or fixed pitch tilt rotational displacement of platform (degrees)
+          0   PtfmYaw     - Initial or fixed yaw rotational displacement of platform (degrees)
+
+
+  Running FAST (v8.16.00a-bjj, 27-Jul-2016), compiled as a 64-bit application using single
+  precision
+  linked with NWTC Subroutine Library (v2.09.00, 23-Jul-2016)
+
+  Heading of the FAST input file:
+    FAST Certification Test #25: NREL 5.0 MW Baseline Wind Turbine with OC4-DeepCwind semi
+    configuration, for use in offshore analysis
+
+  Running ElastoDyn (v1.04.00a-bjj, 26-Jul-2016).
+
+  Running AeroDyn (v15.03.00, 27-Jul-2016).
+
+  Running AirfoilInfo (v1.01.00a-bjj, 5-Apr-2016).
+
+  Running BEM (v1.02.00, 29-Jun-2016).
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 1, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 2, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 3, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 4, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 1, Blade = 2
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 2, Blade = 2
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 3, Blade = 2
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 4, Blade = 2
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 1, Blade = 3
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 2, Blade = 3
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 3, Blade = 3
+ Warning: Turning off Unsteady Aerodynamics because C_nalpha is 0.  BladeNode = 4, Blade = 3
+
+  Running ServoDyn (v1.06.00a-bjj, 26-Jul-2016).
+
+  Running ServoDyn Interface for Bladed Controllers (using GNU Fortran for Linux, 14-Oct-2015).
+
+  Running HydroDyn (v2.05.01, 27-Jul-2016).
+   Setting WaveTMax to 0.0 since WaveMod = 0
+  Reading in WAMIT output with root name
+  "../../Desktop/ENRICO/test_FASTpuro+HydroDyn/WorkingCase1/5MW_Baseline/HydroData/marin_semi".
+  Computing radiation impulse response functions and wave diffraction forces.
+  Calculating second order difference-frequency force using the full quadratic transfer function.
+  Calculating second order sum-frequency force using the full quadratic transfer function.
+
+  Running MoorDyn (v1.01.02F, 8-Apr-2016).
+   Creating mooring system.   3 fairleads, 3 anchors, 0 connects.
+    Finalizing ICs using dynamic relaxation.
+
+
+   t=2  FairTen 1: 9.48374E+05, 0, 0                                                              
+   t=3.9999  FairTen 1: 9.20397E+05, 9.48374E+05, 0                                               
+   t=5.9997  FairTen 1: 9.06728E+05, 9.20397E+05, 9.48374E+05                                     
+   t=7.9996  FairTen 1: 9.11422E+05, 9.06728E+05, 9.20397E+05                                     
+   t=10  FairTen 1: 9.06466E+05, 9.11422E+05, 9.06728E+05                                         
+   t=12.001  FairTen 1: 9.10938E+05, 9.06466E+05, 9.11422E+05                                     
+   t=14.002  FairTen 1: 9.14648E+05, 9.10938E+05, 9.06466E+05                                     
+   t=16.003  FairTen 1: 9.07703E+05, 9.14648E+05, 9.10938E+05                                     
+   t=18.002  FairTen 1: 9.10970E+05, 9.07703E+05, 9.14648E+05                                         Fairlead tensions converged to 1% after 18.002 seconds.
+  Timestep: 0 of 60 seconds.
+
+ FAST_Solution0:CalcOutputs_And_SolveForInputs:SolveOption2:SrvD_CalcOutput:Running with torque
+ and pitch control of the NREL offshore 5MW baseline wind turbine from DISCON.dll as written by J.
+ Jonkman of NREL/NWTC for use in the IEA Annex XXIII OC3 studies.  Includes modifications for the
+ Hywind spar.
+
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 5, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 6, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 7, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 8, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 9, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 10, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 11, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 12, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 13, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 14, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 15, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 16, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 17, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 18, Blade = 1
+ Warning: Turning off Unsteady Aerodynamics due to high angle-of-attack. BladeNode = 19, Blade = 1
+
+ FAST_Solution:FAST_AdvanceStates:AD_UpdateStates:BEMT_UpdateStates(node 5, blade
+ 2):BEMT_UnCoupledSolve:DeterminePhiBounds:There is no valid value of phi for these operating
+ conditions!  Vx = -1.49337E-03, Vy = 2.07824E-02, rlocal = 11.743, theta = 0.23227
+
+ FAST encountered an error at simulation time 1.25000E-02 of 60 seconds.
+  Simulation error level: FATAL ERROR
+
+  Aborting FAST.
+
+################################################################################
+
+https://wind.nrel.gov/forum/wind/viewtopic.php?t=1514
+
+---------------------- FEATURE SWITCHES AND FLAGS ------------------------------
+          1   CompElast       - Compute structural dynamics (switch) {1=ElastoDyn; 2=ElastoDyn + BeamDyn for blades}
+          0   CompInflow      - Compute inflow wind velocities (switch) {0=still air; 1=InflowWind; 2=external from OpenFOAM}
+          0   CompAero        - Compute aerodynamic loads (switch) {0=None; 1=AeroDyn v14; 2=AeroDyn v15}
+          1   CompServo       - Compute control and electrical-drive dynamics (switch) {0=None; 1=ServoDyn}
+          1   CompHydro       - Compute hydrodynamic loads (switch) {0=None; 1=HydroDyn}
+          0   CompSub         - Compute sub-structural dynamics (switch) {0=None; 1=SubDyn}
+          3   CompMooring     - Compute mooring system (switch) {0=None; 1=MAP++; 2=FEAMooring; 3=MoorDyn; 4=OrcaFlex}
+          0   CompIce         - Compute ice loads (switch) {0=None; 1=IceFloe; 2=IceDyn}
+
+################################################################################
+
+...
+  Total Real Time:       23.58 seconds
+  Total CPU Time:        23.58 seconds
+  Simulation CPU Time:   22.152 seconds
+  Simulated Time:        60 seconds
+  Time Ratio (Sim/CPU):  2.7086
+
+  FAST terminated normally.
+
+################################################################################
+
+
